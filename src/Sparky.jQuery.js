@@ -17,16 +17,19 @@ var Sparky = Sparky || (function($, w, d) {
                 })
                 .promise()
                 .done(function(){
-                    Ajax.ajaxUrl = Utils.home_url('ajax');
+                    Ajax.ajaxUrl = Utils.settings.meta.ajaxPath ? Utils.home_url(Utils.settings.meta.ajaxPath) : Utils.home_url();
                 });
             }
         },
         cache: {},
         home_url: function(path){
-            if(typeof path==="undefined"){
+            if(typeof path==="undefined" || $.trim(path) === ""){
                 path = '';
             }
-            return Utils.settings.meta.homeURL+path+'/';
+            else {
+                path += '/';
+            }
+            return Utils.settings.meta.homeURL+path;
         },
         log: function(what) {
             // keep array of console.log history
